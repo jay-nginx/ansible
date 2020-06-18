@@ -6,7 +6,7 @@ perquisites
 # Steps
 #### 1. sudo ansible-galaxy install nginxinc.nginx
 #### 2. sudo ansible-galaxy install nginxinc.nginx_controller_agent
-#### 3. sudo git clone && cd ansible 
+#### 3. sudo git clone https://github.com/learnbyseven/ansible.git && cd ansible 
 
 ### 4. ng+ remote install, sample (Provide target hosts entry inside inventory-hosts.yml)
 #### sudo ansible-playbook -i inventory-hosts.yml nginxplus-install-playbook.yaml
