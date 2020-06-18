@@ -3,6 +3,7 @@ ANSIBLE WORK
 perquisites
 1. Ansible package install
 2. Password less ssh setup jumpbox and target hosts 
+3. Copy NGINXPlus cert&key (nginx-repo.crt & nginx-repo.key) at /root/.ansible/roles/nginxinc.nginx/files/license
 # Steps
 #### 1. sudo ansible-galaxy install nginxinc.nginx
 #### 2. sudo ansible-galaxy install nginxinc.nginx_controller_agent
@@ -18,7 +19,7 @@ Verify : systemctl status nginx
 
 Verify : service controller-agent status
 
-### 6. Remove Nginx-plus
-#
-### 7. Remove controller-agent
-#
+### 6. Remove Nginx-plus (Verify inventory-hosts.yml before play)
+#sudo ansible-playbook -i inventory-hosts.yml uninstall-ctr-agent-playbook.yml
+### 7. Remove controller-agent (Verify inventory-hosts.yml before play)
+#sudo ansible-playbook -i inventory-hosts.yml remove-nginxplus-playbook.yaml
