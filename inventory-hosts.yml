@@ -1,0 +1,6 @@
+[back-end-and-infra:children]
+back-end-servers
+
+[back-end-servers]
+deb ansible_host=192.168.1.61 ansible_port=22 ansible_user=root
+

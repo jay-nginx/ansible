@@ -1,0 +1,31 @@
+---
+- hosts: back-end-servers
+  remote_user: root
+  become: true
+  become_method: sudo
+  gather_facts: yes
+
+  vars:
+    api_key: ""
+    nginx_controller_fqdn: "cts.giri.local"
+    nginx_controller_hostname: "debhost"
+    nginx_controller_location: "jaipur"
+    nginx_controller_instance_name: "debsystem"
+
+  tasks:
+
+  - name: install minimal support for python2 for Agent install script
+    apt:
+      name: "{{ packages }}"
+      state: present
+    vars:
+      packages:
+      - python-minimal
+      - libxerces-c3.2
+
+  - name: install the agent
+    include_role:
+      name: nginxinc.nginx_controller_agent
+    vars:
+      debug: tmp=ansible_env.HOME
+      nginx_controller_api_key: "{{ api_key }}"

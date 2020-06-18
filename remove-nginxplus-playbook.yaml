@@ -1,0 +1,8 @@
+---
+- hosts: back-end-servers
+  #remote_user: root
+
+  tasks:
+  - name: Remove NGINX PLUS 
+    command: apt remove --purge nginx -y
+

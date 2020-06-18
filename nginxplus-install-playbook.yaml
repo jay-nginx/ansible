@@ -1,0 +1,5 @@
+---
+- hosts: back-end-servers
+  roles:
+    - role: 'nginxinc.nginx'
+
