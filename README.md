@@ -8,8 +8,8 @@ perquisites
 #### 2. sudo ansible-galaxy install nginxinc.nginx_controller_agent
 #### 3. sudo git clone && cd ansible 
 
-#### 4. ng+ remote install, sample (Provide target hosts entry inside inventory-hosts.yml)
+### 4. ng+ remote install, sample (Provide target hosts entry inside inventory-hosts.yml)
 #### sudo ansible-playbook -i inventory-hosts.yml nginxplus-install-playbook.yaml
 
-#### 5.ctr agent install, sample (Use option -e for your enviornment specific variables) 
-#### sudo ansible-playbook -i inventory-hosts.yml myagent-playbook.yml -e "api_key=dfb614c8b56e7098a8e4aff398f656ac"
+### 5.ctr agent install, sample (Use option -e for your enviornment specific variables) 
+#### sudo ansible-playbook -i inventory-hosts.yml myagent-playbook.yml -e "api_key=abcdefg "
