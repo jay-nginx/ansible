@@ -1,0 +1,23 @@
+#PRE Tasks
+#
+- hosts: localhost
+  vars:
+     absolute_file_path: "/root/.ansible/roles/nginxinc.nginx_controller_agent/files/nginx-plus-api.conf"
+  tasks:
+  - name: Enable API allow IPs rule
+    replace:
+      path: "{{ absolute_file_path }}"
+      regexp: '#allow 10.0.0.0/8;'
+      replace: 'allow 0.0.0.0/0;'
+
+  - name: Enable API deny all rule 
+    replace:
+      path: "{{ absolute_file_path }}"
+      regexp: '#deny all;'
+      replace: 'deny all;'
+  
+  - name: Verify file
+    command: cat "{{ absolute_file_path }}"
+    register: details
+
+  - debug: msg="{{ details.stdout_lines }}"

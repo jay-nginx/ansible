@@ -1,0 +1,14 @@
+---
+- hosts: back-end-servers
+  #remote_user: root
+
+  tasks:
+  - name: stop nginx service 
+    command: systemctl stop nginx
+    ignore_errors: True
+
+  - name: Remove NGINX PLUS 
+    command: apt remove --purge nginx* -y
+
+  - name: Clean up junk files  
+    command: apt autoclean -y && apt autoremove -y

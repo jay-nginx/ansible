@@ -3,6 +3,16 @@
   #remote_user: root
 
   tasks:
+
+  - name: stop ctr agent service 
+    command: service controller-agent stop 
+    ignore_errors: True
+    
   - name: Uninstall ctr agent
     command: apt remove --purge nginx-controller-agent -y
+    ignore_errors: True
+
+  - name: Cleanup Junk files 
+    command: apt autoclean -y && apt autoremove -y 
+
 

@@ -1,0 +1,20 @@
+#PRE Tasks
+---
+- hosts: localhost
+  vars:
+    absolute_file_path: "/root/.ansible/roles/nginxinc.nginx/defaults/main/main.yml"
+
+
+  tasks:
+  - name: Replace opensource with NginxPlus 
+    replace:
+      path: "{{ absolute_file_path }}"
+      regexp: 'nginx_type: opensource'
+      replace: 'nginx_type: plus'
+
+  - name: Verify file
+    command: cat "{{ absolute_file_path }}"
+    register: details
+
+  - debug: msg="{{ details.stdout_lines }}"
+

@@ -7,10 +7,9 @@
 
   vars:
     api_key: ""
-    nginx_controller_fqdn: "cts.giri.local"
-    nginx_controller_hostname: "debhost"
-    nginx_controller_location: "jaipur"
-    nginx_controller_instance_name: "debsystem"
+    nginx_controller_fqdn: ""
+    nginx_controller_hostname: ""
+    nginx_controller_location: ""
 
   tasks:
 
@@ -27,5 +26,16 @@
     include_role:
       name: nginxinc.nginx_controller_agent
     vars:
-      debug: tmp=ansible_env.HOME
+      debug: var=ansible_env.HOME
       nginx_controller_api_key: "{{ api_key }}"
+
+  - name: Nginx reload (custom)
+    command: nginx -s reload
+
+    
+  - name: Service-check
+    command: service controller-agent status
+    register: details
+
+  - debug: msg="{{ details.stdout_lines }}"
+
