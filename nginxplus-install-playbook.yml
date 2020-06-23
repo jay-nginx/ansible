@@ -3,10 +3,4 @@
   roles:
     - role: 'nginxinc.nginx'
 
-  tasks: 
-    - name: Service-check 
-      command: systemctl status nginx
-      register: details
-
-    - debug: msg="{{ details.stdout_lines }}"
 

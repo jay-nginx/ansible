@@ -10,6 +10,7 @@
     nginx_controller_fqdn: ""
     nginx_controller_hostname: ""
     nginx_controller_location: ""
+    nginx_controller_instance_name: ""
 
   tasks:
 
