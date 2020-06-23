@@ -24,3 +24,7 @@ Verify : service controller-agent status
 #sudo ansible-playbook -i inventory-hosts.yml uninstall-ctr-agent-playbook.yml
 ### 7. Remove controller-agent (Verify inventory-hosts.yml before play)
 #sudo ansible-playbook -i inventory-hosts.yml remove-nginxplus-playbook.yaml
+### 8. Create Gateway (perquisites GUI tasks : Environnment/instance/certs/Application)
+#sudo ansible-playbook -i inventory-hosts.yml create-gateway.yml
+
+OPT: GATEWAY
