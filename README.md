@@ -4,6 +4,7 @@ perquisites
 1. Ansible package install
 2. Password less ssh setup jumpbox and target hosts 
 3. Copy NGINXPlus cert&key (nginx-repo.crt & nginx-repo.key) at /root/.ansible/roles/nginxinc.nginx/files/license
+4. ansible-galaxy install {nginxinc.nginx_controller_generate_token, nginxinc.nginx_controller_gateway,nginxinc.nginx}
 # Steps
 #### 1. sudo ansible-galaxy install nginxinc.nginx
 #### 2. sudo ansible-galaxy install nginxinc.nginx_controller_agent
