@@ -1,7 +1,7 @@
 # ansible
 ANSIBLE WORK
 perquisites
-1. Ansible package install
+1. Ansible package install ( ensure Ansible version is 2.9 or above )
 2. Password less ssh setup jumpbox and target hosts 
 3. Copy NGINXPlus cert&key (nginx-repo.crt & nginx-repo.key) at /root/.ansible/roles/nginxinc.nginx/files/license
 4. ansible-galaxy install {nginxinc.nginx_controller_generate_token,nginxinc.nginx_controller_gateway,nginxinc.nginx}
