@@ -3,7 +3,7 @@
 
   vars:
     nginx_controller_user_email: "j.desai@f5.com"
-    nginx_controller_user_password: "desai1"
+    nginx_controller_user_password: ""
     nginx_controller_fqdn: "controller3.eastus.cloudapp.azure.com"
     nginx_controller_validate_certs: false
 
