@@ -1,0 +1,35 @@
+- hosts: localhost
+  gather_facts: no
+
+  vars:
+    nginx_controller_user_email: "j.desai@f5.com"
+    nginx_controller_user_password: "desai1"
+    nginx_controller_fqdn: "controller3.eastus.cloudapp.azure.com"
+    nginx_controller_validate_certs: false
+
+  tasks:
+    - name: Retrieve the NGINX Controller auth token
+      include_role:
+        name: nginxinc.nginx_controller_generate_token
+
+    - name: Create a gateway
+      include_role:
+        name: nginxinc.nginx_controller_gateway
+      vars:
+        # controller.auth_token: output by previous role in example
+        nginx_controller_environmentName: "test-env"
+        nginx_controller_gateway:
+          metadata:
+            name: lbgateway
+            displayName: "Load Balancing Gateway"
+            description: "This gateway is created using Ansible Script."
+          desiredState:
+            ingress:
+              uris:
+                "http://jdaus.net:9081":
+                  {}
+                "http://jdaus.net:9082":
+                  {}
+              placement:
+                instanceRefs:
+                  - ref: "/infrastructure/locations/perf_gateway/instances/testbox3instance"
