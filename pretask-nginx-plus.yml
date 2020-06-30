@@ -6,7 +6,7 @@
 
 
   tasks:
-  - name: Replace opensource with NginxPlus 
+  - name: Replace nginx-opensource with nginx-plus 
     replace:
       path: "{{ absolute_file_path }}"
       regexp: 'nginx_type: opensource'
