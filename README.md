@@ -1,4 +1,4 @@
-# Environment Set-up
+## Environment Set-up
 VM1 - Ansible Host
 VM2 - Target Machine / NGINX Gateway
 
@@ -17,7 +17,7 @@ VM2 - Checks
 - Ensure you make necessary changes in the /etc/ssh/sshd_conf file to enable remote log-in
 
 
-# Steps - Install NGINX Plus
+## Steps - Install NGINX Plus
 
 #### 1. cd into 'ansible' directory (where this repo is cloned) | cd /opt/ansible
 #### 2. Ensure ansible is at latest version, 2.9 or above | ansible --version
@@ -36,7 +36,7 @@ VM2 - Checks
 #### 7. Verify by logging on to VM2 that NGINX Plus is installed and running   
 
 
-# Steps - Install Controller Agent
+## Steps - Install Controller Agent
 
 ### Finish Step 1, Step 2, Step 3 & Step 7 from the 'Install NGINX Plus' section
 
@@ -50,30 +50,14 @@ VM2 - Checks
     
 #### 4. Verify by logging on to NGINX Controller that the Agent has registered in the location as provided 
 
-# Steps - Create Gateway in NGINX Controller
+## Steps - Create Gateway in NGINX Controller
 
 ##### Ensure all the steps in the above two sections have finished successfully
 
-#### 1. In your NGINX Controller Dashboard - Create an environment. 
+#### 1. In your NGINX Controller Dashboard - Create an environment. Capture the "Name" of the environmet. 
+#### 2. In your 'ansible' directory, edit the create-controller-gateway.yml | sudo vi create-controller-gateway.yml
+#####    Ensure that all the values are updated approprately; username, password, controller-fqdn, environment-name and the agent-name in the instanceRefs tab. 
+#### 3. Run Create Gateway task | ansible-playbook -i inventory-hosts.yml create-controller-gateway.yml
+#####     Ensure the output has no failures
+#### 4. In your NGINX Controller Dashboard - Validate that a new Gateway has been created with your defined parameters
 
-
-#### 3. sudo git clone https://github.com/learnbyseven/ansible.git && cd ansible 
-
-#### 4. ng+ remote install, sample (Provide target hosts entry inside inventory-hosts.yml)
-#sudo ansible-playbook -i inventory-hosts.yml nginxplus-install-playbook.yml
-
-Verify : systemctl status nginx
-
-#### 5.ctr agent install, sample (Use option -e for your enviornment specific variables) or define variables value inside ctr-agent-install-playbook.yml
-#sudo ansible-playbook -i inventory-hosts.yml ctr-agent-install-playbook.yml -e "api_key=abcdefg123 nginx_controller_fqdn= cts.giri.local nginx_controller_location=india-east"
-
-Verify : service controller-agent status
-
-#### 6. Remove Nginx-plus (Verify inventory-hosts.yml before play)
-#sudo ansible-playbook -i inventory-hosts.yml uninstall-ctr-agent-playbook.yml
-#### 7. Remove controller-agent (Verify inventory-hosts.yml before play)
-#sudo ansible-playbook -i inventory-hosts.yml remove-nginxplus-playbook.yaml
-#### 8. Create Gateway (perquisites GUI tasks : Environnment/instance/certs/Application)
-#sudo ansible-playbook -i inventory-hosts.yml create-gateway.yml
-
-OPT: GATEWAY
