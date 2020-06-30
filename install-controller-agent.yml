@@ -34,7 +34,7 @@
     command: nginx -s reload
 
     
-  - name: Service-check
+  - name: Service-Check
     command: service controller-agent status
     register: details
 
