@@ -49,7 +49,9 @@ VM2 - Checks<br/>
 
 #### 2. Run Controller Agent Install | ansible-playbook -i inventory-hosts.yml install-controller-agent.yml -e "api_key=<api_key> nginx_controller_fqdn=<contorller_host> nginx_controller_location=<location> nginx_controller_instance_name=<name>"
 ### example: 
-    ``` ansible-playbook install-controller-agent.yml -e "api_key=169dd026fcb005ba71eeec7238b6c7d2 nginx_controller_fqdn=controller3.westus.cloudapp.aws.com nginx_controller_location=unspecified nginx_controller_instance_name=$HOSTNAME"```
+    ``` 
+    ansible-playbook install-controller-agent.yml -e "api_key=169dd026fcb005ba71eeec7238b6c7d2 nginx_controller_fqdn=controller3.westus.cloudapp.aws.com nginx_controller_location=unspecified nginx_controller_instance_name=$HOSTNAME"
+    ```
 #####       Ensure the output has no failures
     
 #### 4. Verify by logging on to NGINX Controller that the Agent has registered in the location as provided 
