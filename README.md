@@ -1,12 +1,21 @@
-# ansible
-ANSIBLE WORK
-perquisites
-1. Ansible package install
-2. Password less ssh setup jumpbox and target hosts 
-3. Copy NGINXPlus cert&key (nginx-repo.crt & nginx-repo.key) at /root/.ansible/roles/nginxinc.nginx/files/license
-4. ansible-galaxy install {nginxinc.nginx_controller_generate_token,nginxinc.nginx_controller_gateway,nginxinc.nginx}
-or 
-ansible-galaxy install nginxinc.nginx
+# Environment Set-up
+VM1 - Ansible Host
+VM2 - Target Machine / NGINX Gateway
+
+VM1 - Checks
+- Ensure you can 'ssh root@<ip_vm2>' without password
+- Ensure you can 'ssh root@<ip_vm1>' without password on the same box
+- Ensure you you have latest version of Ansible installed (2.9 or greater)
+- Install relevant Roles for running the tasks / ansible-galaxy install <role_name>
+    - nginxinc.nginx
+    - nginxinc.nginx_controller_agent
+    - nginxinc.nginx_controller_gateway
+- Ensure you have cloned this repo
+VM2 - Checks
+- Ensure you make necessary changes in the /etc/ssh/sshd_conf file to enable remote log-in
+
+
+
 # Steps
 #### 1. sudo ansible-galaxy install nginxinc.nginx
 #### 2. sudo ansible-galaxy install nginxinc.nginx_controller_agent
