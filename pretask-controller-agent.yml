@@ -2,7 +2,7 @@
 #
 - hosts: localhost
   vars:
-     absolute_file_path: "/root/.ansible/roles/nginxinc.nginx_controller_agent/files/nginx-plus-api.conf"
+     absolute_file_path: "/home/ubuntu/.ansible/roles/nginxinc.nginx_controller_agent/files/nginx-plus-api.conf"
   tasks:
   - name: Enable API allow IPs rule
     replace:

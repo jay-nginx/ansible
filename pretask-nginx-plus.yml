@@ -2,7 +2,7 @@
 ---
 - hosts: localhost
   vars:
-    absolute_file_path: "/root/.ansible/roles/nginxinc.nginx/defaults/main/main.yml"
+    absolute_file_path: "/home/ubuntu/.ansible/roles/nginxinc.nginx/defaults/main/main.yml"
 
 
   tasks:
@@ -18,3 +18,8 @@
 
   - debug: msg="{{ details.stdout_lines }}"
 
+- hosts: back-end-servers
+  
+  tasks:
+  - name: Update VM
+    command: sudo apt-get update
