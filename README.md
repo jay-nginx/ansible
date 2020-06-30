@@ -11,31 +11,68 @@ VM1 - Checks
     - nginxinc.nginx_controller_agent
     - nginxinc.nginx_controller_gateway
 - Ensure you have cloned this repo
+- Have .crt & .key for your N+ installation available
 VM2 - Checks
 - Ensure you make necessary changes in the /etc/ssh/sshd_conf file to enable remote log-in
 
 
+# Steps - Install NGINX Plus
 
-# Steps
-#### 1. sudo ansible-galaxy install nginxinc.nginx
-#### 2. sudo ansible-galaxy install nginxinc.nginx_controller_agent
+#### 1. cd into 'ansible' directory (where this repo is cloned) | cd /opt/ansible
+#### 2. Ensure ansible is at latest version, 2.9 or above | ansible --version
+#### 3. Update the inventory-hosts.yml file | sudo vi inventory-hosts.yml | localhost = vm1 & Target Machine = vm2
+####    Make sure you have populated the hostname & ip-addresses
+###     (Optionally, you can replace your /etc/ansible/hosts file with the contents of inventory-hosts.yml)
+
+#### 4. Run the Pre Task for NGINX Install | ansible-playbook -i inventory-hosts.yml pretask-nginx-plus.yml
+###     Ensure the output has no failures - This step replaces 'opensource' to 'plus' in the main.yml file for the role
+###     Additionally, Validate if the path to ansible role is within the home directory of the user e.g. "/home/ubuntu/..."
+
+#### 5. Copy .crt & .key to specific location | sudo cp nginx-repo* /home/ubuntu/.ansible/roles/nginxinc.nginx/files/license
+###     Ensure by ls/cd to location that the files have successfully copied  
+
+#### 6. Run the NGINX Plus Install | ansible-playbook -i inventory-hosts.yml install-nginx-plus.yml
+#### 7. Verify by logging on to VM2 that NGINX Plus is installed and running   
+
+
+# Steps - Install Controller Agent
+
+### Finish Step 1, Step 2, Step 3 & Step 7 from the 'Install NGINX Plus' section
+
+#### 1. Run the Pre Task for Controller Agent Install | ansible-playbook -i inventory-hosts.yml pretask-controller-agent.yml
+###     Ensure the output has no failures
+###     Additionally, Validate if the path to ansible role is within the home directory of the user e.g. "/home/ubuntu/..."
+
+#### 2. Run Controller Agent Install | ansible-playbook -i inventory-hosts.yml install-controller-agent.yml -e "api_key=<api_key> nginx_controller_fqdn=<contorller_host> nginx_controller_location=<location> nginx_controller_instance_name=<name>"
+### example: ansible-playbook install-controller-agent.yml -e "api_key=169dd026fcb005ba71eeec7238b6c7d2 nginx_controller_fqdn=controller3.westus.cloudapp.aws.com nginx_controller_location=unspecified nginx_controller_instance_name=$HOSTNAME"
+###     Ensure the output has no failures
+    
+#### 4. Verify by logging on to NGINX Controller that the Agent has registered in the location as provided 
+
+# Steps - Create Gateway in NGINX Controller
+
+### Ensure all the steps in the above two sections have finished successfully
+
+#### 1. In your NGINX Controller Dashboard - Create an environment. 
+
+
 #### 3. sudo git clone https://github.com/learnbyseven/ansible.git && cd ansible 
 
-### 4. ng+ remote install, sample (Provide target hosts entry inside inventory-hosts.yml)
+#### 4. ng+ remote install, sample (Provide target hosts entry inside inventory-hosts.yml)
 #sudo ansible-playbook -i inventory-hosts.yml nginxplus-install-playbook.yml
 
 Verify : systemctl status nginx
 
-### 5.ctr agent install, sample (Use option -e for your enviornment specific variables) or define variables value inside ctr-agent-install-playbook.yml
+#### 5.ctr agent install, sample (Use option -e for your enviornment specific variables) or define variables value inside ctr-agent-install-playbook.yml
 #sudo ansible-playbook -i inventory-hosts.yml ctr-agent-install-playbook.yml -e "api_key=abcdefg123 nginx_controller_fqdn= cts.giri.local nginx_controller_location=india-east"
 
 Verify : service controller-agent status
 
-### 6. Remove Nginx-plus (Verify inventory-hosts.yml before play)
+#### 6. Remove Nginx-plus (Verify inventory-hosts.yml before play)
 #sudo ansible-playbook -i inventory-hosts.yml uninstall-ctr-agent-playbook.yml
-### 7. Remove controller-agent (Verify inventory-hosts.yml before play)
+#### 7. Remove controller-agent (Verify inventory-hosts.yml before play)
 #sudo ansible-playbook -i inventory-hosts.yml remove-nginxplus-playbook.yaml
-### 8. Create Gateway (perquisites GUI tasks : Environnment/instance/certs/Application)
+#### 8. Create Gateway (perquisites GUI tasks : Environnment/instance/certs/Application)
 #sudo ansible-playbook -i inventory-hosts.yml create-gateway.yml
 
 OPT: GATEWAY
